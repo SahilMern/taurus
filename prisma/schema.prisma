@@ -1,0 +1,124 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model RfqQuotesInitiate {
+  id                       Int      @id @default(autoincrement())
+  investorId               Int      @unique
+  errorcode                Int
+  message                  String?
+  quotetype                String   @db.VarChar(100)
+  bidrfqordernumber        String
+  offerrfqordernumber      String
+  otmoto                   String
+  otoparticipant           String
+  isinnumber               String
+  bidvalue                 Decimal
+  offervalue               Decimal
+  bidminvalue              Decimal
+  offerminvalue            Decimal
+  bidyield                 Decimal
+  offeryield               Decimal
+  bidprice                 Decimal
+  offerprice               Decimal
+  bidquantity              Int
+  offerquantity            Int
+  directbrokered           String
+  initiatorbrokercode      String
+  proclient                String
+  settlementdate           DateTime @db.Date
+  orderstatus              String
+  dealtime                 DateTime
+  initiatorreferencenumber String
+  rfqdealid                String
+  initiatorcomment         String
+  obpplatform              String
+  created_At               DateTime @default(now())
+}
+
+model RfqQuotesAccept {
+  id                       Int      @id @default(autoincrement())
+  investorId               String   @unique
+  errorcode                Int
+  message                  String
+  quotetype                String
+  otmoto                   String
+  rfqordernumber           String
+  isinnumber               String
+  value                    Decimal
+  yield                    Decimal
+  price                    Decimal
+  accruedinterest          Decimal
+  consideration            Decimal
+  orderstatus              String
+  dealtime                 DateTime
+  responderreferencenumber String
+  buyerclientcode          String
+  sellerclientcode         String
+  directbrokered           String
+  responderbrokercode      String
+  rfqdealid                String
+  obpplatform              String
+}
+
+model RfqQuoteDealPropose {
+  id                      Int      @id @default(autoincrement())
+  investorId              String   @unique
+  errorcode               Int
+  message                 String
+  rfqordernumber          String
+  icdmordernumber         String
+  isinnumber              String
+  value                   Decimal
+  yield                   Decimal
+  price                   Decimal
+  modifiedaccruedinterest Decimal
+  consideration           Decimal
+  orderstatus             String
+  dealtime                DateTime
+  rfqdealid               String   
+  freeze                  String
+  settlementdate          DateTime @default(now())
+  sellerclientcode        String
+  buyerclientcode         String
+  quantity                Int
+  directbrokered          String
+  brokercode              String
+}
+
+model RfqQuoteDealApprove {
+  id                    Int      @id @default(autoincrement())
+  investorId            String   @unique
+  errorcode             Int
+  message               String
+  icdmordernumber       String
+  rfqdealid             String
+  product               String
+  isinnumber            String
+  coupon                Decimal
+  maturity_call_putdate DateTime @default(now())
+  value                 Decimal
+  price                 Decimal
+  quantity              Int
+  yieldtype             String
+  yield                 Decimal
+  modaccruedint         Decimal
+  consideration         Decimal
+  buyerclientcode       String
+  sellerclientcode      String
+  directbrokered        String
+  brokercode            String
+  freeze                String
+  dealtime              DateTime
+}
