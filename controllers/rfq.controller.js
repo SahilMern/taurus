@@ -1,4 +1,4 @@
-const e = require("express");
+const express = require("express");
 const prisma = require("../DB/db.config");
 const { validateFields, sendErrorResponse } = require("../utils/errorHandler");
 
